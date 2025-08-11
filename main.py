@@ -7,28 +7,28 @@ import google.generativeai as genai
 from transformers import AutoTokenizer, AutoModelForCausalLM
 import torch
 
-# ------------------------
-# Load environment variables
-# ------------------------
+
+
+
 load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 if not GEMINI_API_KEY:
     raise RuntimeError("GEMINI_API_KEY not set in .env file")
 
-# Configure Google Generative AI
+
 genai.configure(api_key=GEMINI_API_KEY)
 gemini_model = genai.GenerativeModel("gemini-1.5-flash")
 
-# Load Falcon model for summarization
+
 model_name = "tiiuae/falcon-rw-1b"
 falcon_tokenizer = AutoTokenizer.from_pretrained(model_name)
 falcon_model = AutoModelForCausalLM.from_pretrained(model_name)
 device = "cuda" if torch.cuda.is_available() else "cpu"
 falcon_model.to(device)
 
-# ------------------------
+
 # FastAPI app
-# ------------------------
+
 app = FastAPI(title="GlobeTrotter API")
 
 from fastapi.middleware.cors import CORSMiddleware
