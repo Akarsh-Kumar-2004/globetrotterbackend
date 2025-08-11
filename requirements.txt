@@ -4,3 +4,4 @@ python-dotenv
 transformers
 torch
 fastapi
+uvicorn
